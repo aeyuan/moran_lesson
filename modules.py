@@ -166,7 +166,9 @@ def plot_mutation_selection(color, n_replicates, n_loci, mu, pop_size,
   np.random.seed(seed)
   plt.figure(figsize=[10,6])
   for i in range(n_replicates):
-    ledger = moran_clonal_int(n_loci, mu, pop_size, r, n_steps)
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        ledger = moran_clonal_int(n_loci, mu, pop_size, r, n_steps)
     plt.plot(ledger / pop_size, color=color)
     plt.ylim([0, 1])
   plt.xlabel("time steps", fontsize=16)
